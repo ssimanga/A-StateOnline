@@ -12,12 +12,12 @@ namespace A_StateOnline.UI.Controllers
     public class ProductController : Controller
     {
 
-        ProductRepository context;
-        CategoryRepository productCategories;
+        InMemoryRepository<Product> context;
+        InMemoryRepository<ProductCategory> productCategories;
         public ProductController()
         {
-            context = new ProductRepository();
-            productCategories = new CategoryRepository();
+            context = new InMemoryRepository<Product>();
+            productCategories = new InMemoryRepository<ProductCategory>();
         }
         // GET: Product
         public ActionResult Index()

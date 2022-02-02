@@ -10,10 +10,10 @@ namespace A_StateOnline.UI.Controllers
 {
     public class CategoryController : Controller
     {
-        CategoryRepository context;
+        InMemoryRepository<ProductCategory> context;
         public CategoryController()
         {
-            context = new CategoryRepository();
+            context = new InMemoryRepository<ProductCategory>();
         }
         // GET: Category
         public ActionResult Index()
