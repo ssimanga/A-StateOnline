@@ -1,4 +1,5 @@
-﻿using A_StateOnline.Core.Models;
+﻿using A_StateOnline.Core.Contracts;
+using A_StateOnline.Core.Models;
 using A_StateOnline.Core.ViewModels;
 using A_StateOnline.DataAccess.Inmemory;
 using System;
@@ -12,12 +13,12 @@ namespace A_StateOnline.UI.Controllers
     public class ProductController : Controller
     {
 
-        InMemoryRepository<Product> context;
-        InMemoryRepository<ProductCategory> productCategories;
-        public ProductController()
+        IRepository<Product> context;
+        IRepository<ProductCategory> productCategories;
+        public ProductController(IRepository<Product> productContext, IRepository<ProductCategory> categoryContext)
         {
-            context = new InMemoryRepository<Product>();
-            productCategories = new InMemoryRepository<ProductCategory>();
+            context = productContext;
+            productCategories = categoryContext;
         }
         // GET: Product
         public ActionResult Index()

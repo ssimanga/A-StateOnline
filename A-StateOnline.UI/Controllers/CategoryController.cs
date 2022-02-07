@@ -1,4 +1,5 @@
-﻿using A_StateOnline.Core.Models;
+﻿using A_StateOnline.Core.Contracts;
+using A_StateOnline.Core.Models;
 using A_StateOnline.DataAccess.Inmemory;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,10 @@ namespace A_StateOnline.UI.Controllers
 {
     public class CategoryController : Controller
     {
-        InMemoryRepository<ProductCategory> context;
-        public CategoryController()
+        IRepository<ProductCategory> context;
+        public CategoryController(IRepository<ProductCategory> categoryContext)
         {
-            context = new InMemoryRepository<ProductCategory>();
+            context = categoryContext;
         }
         // GET: Category
         public ActionResult Index()
