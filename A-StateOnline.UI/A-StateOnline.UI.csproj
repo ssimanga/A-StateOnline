@@ -292,6 +292,10 @@
       <Project>{462C5705-12A1-4D13-AE56-B0CF9F49B45B}</Project>
       <Name>A-StateOnline.DataAccess.Inmemory</Name>
     </ProjectReference>
+    <ProjectReference Include="..\A-StateOnline.DataAccess.Sql\A-StateOnline.DataAccess.Sql.csproj">
+      <Project>{76AF300B-B48B-4237-8322-5A585FDA4523}</Project>
+      <Name>A-StateOnline.DataAccess.Sql</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
