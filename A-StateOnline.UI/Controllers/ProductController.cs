@@ -4,6 +4,7 @@ using A_StateOnline.Core.ViewModels;
 using A_StateOnline.DataAccess.Inmemory;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -34,7 +35,7 @@ namespace A_StateOnline.UI.Controllers
             return View(viewModel);
         }
         [HttpPost]
-        public ActionResult Create(Product product)
+        public ActionResult Create(Product product, HttpPostedFileBase file)
         {
             if (!ModelState.IsValid)
             {
@@ -42,6 +43,11 @@ namespace A_StateOnline.UI.Controllers
             }
             else
             {
+                if(file != null)
+                {
+                    product.Image = product.Id + Path.GetExtension(file.FileName);
+                    file.SaveAs(Server.MapPath("//Content//ProductImages//" + product.Image));
+                }
                 context.Insert(product);
                 context.Commit();
                 return RedirectToAction("Index");
@@ -63,7 +69,7 @@ namespace A_StateOnline.UI.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Edit(Product product, string Id)
+        public ActionResult Edit(Product product, string Id, HttpPostedFileBase file)
         {
             Product prod = context.Find(Id);
             if (prod == null)
@@ -76,9 +82,14 @@ namespace A_StateOnline.UI.Controllers
                 {
                     return View(product);
                 }
+                if(file != null)
+                {
+                    prod.Image = product.Id + Path.GetExtension(file.FileName);
+                    file.SaveAs(Server.MapPath("//Content//ProductImages//" + prod.Image));
+                }
                 prod.Category = product.Category;
                 prod.Description = product.Description;
-                prod.Image = product.Image;
+                
                 prod.Name = product.Name;
                 prod.Price = product.Price;
                 context.Commit();
