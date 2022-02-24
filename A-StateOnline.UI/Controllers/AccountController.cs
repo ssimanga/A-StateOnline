@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using A_StateOnline.UI.Models;
+using A_StateOnline.Core.Models;
+using A_StateOnline.Core.Contracts;
 
 namespace A_StateOnline.UI.Controllers
 {
@@ -17,15 +19,14 @@ namespace A_StateOnline.UI.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private IRepository<Customer> customerRepository;
 
-        public AccountController()
-        {
-        }
+      
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController( IRepository<Customer> CustomerRepository )
         {
-            UserManager = userManager;
-            SignInManager = signInManager;
+            
+            this.customerRepository = CustomerRepository;
         }
 
         public ApplicationSignInManager SignInManager
@@ -155,6 +156,20 @@ namespace A_StateOnline.UI.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    //Register Customer Account
+                    Customer customer = new Customer()
+                    {
+                        City = model.City,
+                        Email = model.Email,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        State = model.State,
+                        Street = model.Street,
+                        ZipCode = model.ZipCode,
+                        UserId = user.Id
+                    };
+                    customerRepository.Insert(customer);
+                    customerRepository.Commit();
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771

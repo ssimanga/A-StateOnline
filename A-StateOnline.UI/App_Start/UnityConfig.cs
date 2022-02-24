@@ -51,6 +51,7 @@ namespace A_StateOnline.UI
             container.RegisterType<IRepository<ProductCategory>, SQLRepository<ProductCategory>>();
             container.RegisterType<IRepository<Cart>, SQLRepository<Cart>>();
             container.RegisterType<IRepository<CartItem>, SQLRepository<CartItem>>();
+            container.RegisterType<IRepository<Customer>, SQLRepository<Customer>>();
             container.RegisterType<ICartService, CartService>();
         }
     }
