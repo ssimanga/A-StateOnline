@@ -14,6 +14,8 @@ namespace A_StateOnline.Core.Contracts
         void RemoveFromCart(HttpContextBase httpContext, string itemId);
         List<CartItemVM> GetCartItems(HttpContextBase httpContext);
         CartSummaryVM GetCartSummary(HttpContextBase httpContext);
-        
+        void ClearCart(HttpContextBase httpContext);
+
+
     }
 }
