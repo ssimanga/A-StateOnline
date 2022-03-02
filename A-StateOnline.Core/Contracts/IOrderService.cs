@@ -11,5 +11,8 @@ namespace A_StateOnline.Core.Contracts
     public interface IOrderService
     {
         void CreateOrder(Order baseOrde, List<CartItemVM> cartItems);
+        List<Order> GetOrdersList();
+        Order GetOrder(string Id);
+        void UpdateOrder(Order updatedOrder);
     }
 }
